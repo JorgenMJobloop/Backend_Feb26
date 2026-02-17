@@ -117,3 +117,59 @@ class Program
     }
 }
 ```
+
+### Code from day 1
+```cs
+        // john is in this case a object instance of our Person class.
+        var john = new Person
+        {
+            Name = "John",
+            Birthday = "1/1/1992",
+            Age = 34,
+            Hobbies = ["Programming", "Gaming"]
+        };
+
+        var jane = new Person
+        {
+            Name = "Jane",
+            Birthday = "5/10/1993",
+            Age = 33,
+            Hobbies = ["Skiing", "Soccer", "Programming"]
+        };
+
+        john.PrintInformation();
+
+        jane.PrintInformation();
+
+
+        // Challenges
+
+        // Challenge one: print a name out in the console
+        // hint: Console.ReadLine();
+        // Get the name from keyboard input and store it as a variable
+        Console.WriteLine("What is your name?");
+        var name = Console.ReadLine();
+        // print the name back out to the console
+        Console.WriteLine($"Hello {name}!");
+
+        // Challenge two: add a number (x) with a number (y) together
+        // hint: int x, int y(double x, double y)
+        var x = 10;
+        var y = 25.5;
+        var sum = x + y;
+        Console.WriteLine($"x({x}) + y({y}) = {sum}");
+
+        // Challenge three: create a new List of strings & print the contents of the list
+        // hint: List<string> myItems = ["", ""];
+        List<string> programmingLanguages = ["C#", "Java", "JavaScript", "Rust", "C", "C++", "TypeScript", "Go", "Python"];
+
+        // solution one
+        foreach (var lang in programmingLanguages)
+        {
+            Console.WriteLine(lang);
+        }
+
+        // solution two
+        var langauges = string.Join(", ", programmingLanguages);
+        Console.WriteLine(langauges);
+```
