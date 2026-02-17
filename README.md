@@ -174,3 +174,20 @@ class Program
         var langauges = string.Join(", ", programmingLanguages);
         Console.WriteLine(langauges);
 ```
+
+### Temperature Converter Fahrenheit to Celsius
+```math
+°C = 5/9 * (°F - 32)
+```
+#### Psuedocode
+```cs
+public static double ConvertToCelsius(double F) 
+{
+    return (5/9) * (F - 32)
+}
+
+public static double ConvertToFahrenheit(double C) 
+{
+    return C * 9/5 + 32;
+}
+```
