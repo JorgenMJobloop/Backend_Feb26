@@ -1,4 +1,6 @@
-﻿namespace Basic_Week_One;
+﻿using System.Security.Cryptography;
+
+namespace Basic_Week_One;
 
 class Program
 {
@@ -13,7 +15,6 @@ class Program
         var fahren = TemperatureConverter.ConvertToFahrenheit(celcius);
         Console.WriteLine(fahren);
 
-        var playerOne = new Player(200, 250, [""], new CharacterClass("Warrior", "Helmet", "Chainmail", "Platelegs", 2.2, "Sword", 1));
-        playerOne.Attack(playerOne.CharacterClass!);
+        var playerOne = new Player("", 200, 250, [""], new CharacterClass("Warrior", "Helmet", "Chainmail", "Platelegs", 2.2, "Sword", 1));
     }
 }

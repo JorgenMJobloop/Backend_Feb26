@@ -1,5 +1,11 @@
-public class Player
+using System.Security.Cryptography.X509Certificates;
+
+public class Player : IBattleSystem
 {
+    /// <summary>
+    /// Name of the player
+    /// </summary>
+    public string Name { get; }
     /// <summary>
     /// Hitpoints property
     /// </summary>
@@ -16,15 +22,17 @@ public class Player
     /// Character class (mage, warrior, ranger)
     /// </summary>
     public CharacterClass? CharacterClass { get; set; }
-    private double BaseDamage = 30;
-    private NPC npc = new NPC();
+
+    public double BaseDamage { get; private set; } = 30;
+
+    public bool IsAlive => HP > 0; // if the player has more than 0 Hitpoints, this value is true, else it is false.
 
     /// <summary>
     /// Constructor that allows for "empty" initalization when an object is created to referance this class
     /// </summary>
     public Player()
     {
-
+        Name = string.Empty;
     }
 
     /// <summary>
@@ -34,57 +42,52 @@ public class Player
     /// <param name="mana">Mana</param>
     /// <param name="stats">Overall stats</param>
     /// <param name="character">type of char class</param>
-    public Player(double hp, double mana, List<string> stats, CharacterClass character)
+    public Player(string name, double hp, double mana, List<string> stats, CharacterClass character)
     {
+        Name = name;
         HP = hp;
         Mana = mana;
         Stats = stats;
         CharacterClass = character;
     }
 
-    public void Attack(CharacterClass character)
+    public void TakeDamage(double amount)
     {
-        var weapon = character.Weapon;
-        var rng = new Random().Next(10);
-        var npcHP = npc.HP = 30;
-        var experience = npc.XPWhenDefeated * character.XPMultiplier;
-        while (HP >= 100)
-        {
-            // get the character class
-            if (character.Build == "Warrior" || character.Build == "Ranger")
-            {
-                var dmg = GetDamage(rng);
-                if (dmg == 1)
-                {
-                    npcHP -= 17.5;
-                    Console.WriteLine("Landed a critical hit");
-
-                }
-                else
-                {
-                    Console.WriteLine($"{character.Build} did {dmg} damage!");
-                    Console.WriteLine($"{character.Weapon} did {dmg} damage to {npc.TypeOfFoe} and gained {experience} experience from defeating it!");
-                }
-            }
-            else
-            {
-
-            }
-            HP--;
-            if (HP == 0)
-            {
-                break;
-            }
-        }
+        HP = Math.Max(0, HP - amount);
     }
 
-    /// <summary>
-    /// Get the current damage dealt if the attack is successful
-    /// </summary>
-    /// <param name="roll">Use a Random Number Generator to get a accuracy roll</param>
-    /// <returns>Damage dealt</returns>
-    private double GetDamage(double roll)
+    public double DealDamage(Random rng)
     {
-        return BaseDamage / roll * 100;
+        int rolledDamage = rng.Next(1, 101);
+        bool criticalHit = rng.Next(1, 101) <= 25; // 25% dmg if a critial hit has landed.
+
+        // we can check how many times an attack misses, by using the rolledDamage variable.
+        if (rolledDamage <= 20)
+        {
+            return 0; // 20% missed hits
+        }
+
+        var damage = BaseDamage;
+
+        // check each character class/build
+        switch (CharacterClass!.Build)
+        {
+            case "Warrior":
+                damage *= 1.2; // 20% extra damage dealt
+                break;
+            case "Ranger":
+                damage *= 1.1; // 10% extra damage dealt
+                break;
+            case "Mage":
+                damage *= 1.5; // 50% extra damage dealt
+                break;
+        }
+
+        if (criticalHit)
+        {
+            damage *= 2;
+        }
+
+        return Math.Round(damage, 1);
     }
 }
