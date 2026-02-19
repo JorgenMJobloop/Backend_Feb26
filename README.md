@@ -191,3 +191,6 @@ public static double ConvertToFahrenheit(double C)
     return C * 9/5 + 32;
 }
 ```
+
+### Player/Char/NPC
+![alt text](image-2.png)
