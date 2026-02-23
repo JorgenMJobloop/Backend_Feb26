@@ -194,3 +194,27 @@ public static double ConvertToFahrenheit(double C)
 
 ### Player/Char/NPC
 ![alt text](image-2.png)
+
+### Example of hashes & object equality
+```cs
+        var a = new Person();
+        var b = a;
+        var c = new Person();
+
+        var hash1 = b.GetHashCode();
+        var hash2 = a.GetHashCode();
+        var hash3 = c.GetHashCode();
+
+        if (hash1 == hash2)
+        {
+            Console.WriteLine("Objects are equal");
+        }
+        else if(hash1 == hash3 || hash2 == hash3)
+        {
+            Console.WriteLine("object 1 and object 2 are not equal");
+        }
+        else
+        {
+            Console.WriteLine("objects are not equal");
+        }
+```

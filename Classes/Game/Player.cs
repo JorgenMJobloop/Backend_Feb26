@@ -21,6 +21,8 @@ public class Player : IBattleSystem
 
     public double BaseDamage { get; private set; } = 10;
 
+    public Inventory Inventory { get; } = new Inventory();
+
     public bool IsAlive => HP > 0; // if the player has more than 0 Hitpoints, this value is true, else it is false.
 
     /// <summary>

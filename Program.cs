@@ -28,5 +28,6 @@ class Program
 
         var battle = new BattleEngine();
         battle.Fight(player, npc);
+
     }
 }

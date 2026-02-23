@@ -10,7 +10,7 @@ public class BattleEngine
     /// </summary>
     /// <param name="player">The player</param>
     /// <param name="npc">npc</param>
-    public void Fight(IBattleSystem player, IBattleSystem npc)
+    public void Fight(Player player, NPC npc)
     {
         Console.WriteLine($"Battle started: {player.Name} VS {npc.Name}");
 
@@ -33,9 +33,32 @@ public class BattleEngine
             Console.WriteLine($"{player.Name} HP: {player.HP} | {npc.Name} HP: {npc.HP}");
             rounds++;
         }
-        // use a terniary to determine the winner of the battle
-        var winner = player.IsAlive ? player : npc;
-        Console.WriteLine($"{winner.Name} won the battle!");
+
+        if (player.IsAlive)
+        {
+            Console.WriteLine($"{player.Name} defeated {npc.Name}\nand gained {npc.XPWhenDefeated} experience.");
+
+            // implementing the looting system
+            var loot = npc.RollLoot(_rng, rolls: 1, dropChance: 0.85);
+
+            if (loot.Count == 0)
+            {
+                Console.WriteLine($"{npc.Name} dropped no items");
+            }
+            else
+            {
+                foreach (var (item, amount) in loot)
+                {
+                    player.Inventory.Add(item, amount);
+                    Console.WriteLine($"Items looted: {item} : {amount}");
+                }
+            }
+            Console.WriteLine($"Items currently in inventory: {player.Inventory}");
+        }
+        else
+        {
+            Console.WriteLine($"{player.Name} was defeated by {npc.Name}...");
+        }
     }
 
     /// <summary>
