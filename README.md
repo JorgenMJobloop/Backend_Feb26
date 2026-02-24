@@ -5,10 +5,37 @@
     * Spectre Console
     * Pipewire(?)
     * FFMpeg(?)
-    * 
+
 ```sh
 dotnet add package Spectre.Console
 ```
+
+
+
+## Overview
+
+### Components
+
+    - Player 
+        * Party (other character classes 'mage,range etc')
+        * Companions (inherits from Party)
+        - CharacterClass
+            * Specific Builds using Enums
+
+    - NPC
+        * Wide array of different NPC's
+    
+    - Overworld/Worldmap(?)
+
+    - BattleEngine & IBattleSystem interface
+        * Version 0.1 already implemented
+
+
+
+
+
+
+
 
 
 ### Gitignore template file for .NET Projects

@@ -1,6 +1,5 @@
-using System.Security.Cryptography.X509Certificates;
 
-public class Player : IBattleSystem
+public class Player
 {
     /// <summary>
     /// Name of the player
@@ -9,43 +8,29 @@ public class Player : IBattleSystem
     /// <summary>
     /// Hitpoints property
     /// </summary>
-    public double HP { get; private set; }
+    public double HP { get; set; } = 100;
     /// <summary>
     /// Mana property
     /// </summary>
-    public double Mana { get; private set; }
+    public double Mana { get; set; } = 50;
     /// <summary>
     /// Character class (mage, warrior, ranger)
     /// </summary>
     public CharacterClass? CharacterClass { get; set; }
 
-    public double BaseDamage { get; private set; } = 10;
-
     public Inventory Inventory { get; } = new Inventory();
+
+    public Party? Party { get; } = new Party();
 
     public bool IsAlive => HP > 0; // if the player has more than 0 Hitpoints, this value is true, else it is false.
 
     /// <summary>
     /// Constructor that allows for "empty" initalization when an object is created to referance this class
     /// </summary>
-    public Player()
-    {
-        Name = string.Empty;
-    }
-
-    /// <summary>
-    /// Constructor that takes in values and passes them along to the object
-    /// </summary>
-    /// <param name="hp">Hitpoints</param>
-    /// <param name="mana">Mana</param>
-    /// <param name="stats">Overall stats</param>
-    /// <param name="character">type of char class</param>
-    public Player(string name, double hp, double mana, CharacterClass character)
+    public Player(string name, CharacterClass characterClass)
     {
         Name = name;
-        HP = hp;
-        Mana = mana;
-        CharacterClass = character;
+        CharacterClass = characterClass;
     }
 
     public void TakeDamage(double amount)
@@ -64,18 +49,18 @@ public class Player : IBattleSystem
             return 0; // 20% missed hits
         }
 
-        var damage = BaseDamage;
+        var damage = 30.0;
 
         // check each character class/build
         switch (CharacterClass!.Build)
         {
-            case "Warrior":
+            case CharacterBuild.Warrior:
                 damage *= 1.2; // 20% extra damage dealt
                 break;
-            case "Ranger":
+            case CharacterBuild.Ranger:
                 damage *= 1.1; // 10% extra damage dealt
                 break;
-            case "Mage":
+            case CharacterBuild.Mage:
                 damage *= 1.5; // 50% extra damage dealt
                 break;
         }

@@ -20,6 +20,9 @@ public class Inventory
         _items[itemName] = existingItems + amount;
     }
 
+    public IReadOnlyDictionary<string, int> Items => _items;
+    public bool IsEmpty => _items.Count == 0;
+
     public override string ToString()
     {
         if (_items.Count == 0)

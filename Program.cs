@@ -15,24 +15,29 @@ class Program
         // var fahren = TemperatureConverter.ConvertToFahrenheit(celcius);
         // Console.WriteLine(fahren);
 
-        var warrior = new CharacterClass(build: "Warrior", head: "Helmet", body: "Armor", feet: "Platelegs", multiplier: 1.2, weapon: "Sword", baseLevel: 1);
-        var player = new Player(name: "Rambo", hp: 100, mana: 0, character: warrior);
+        // var warrior = new CharacterClass(CharacterBuild.Warrior, 0.5, "Sword");
+        // var player = new Player(name: "Rambo", characterClass: warrior);
 
-        var npc = new NPC
-        {
-            TypeOfFoe = "Goblin",
-            XPWhenDefeated = 30,
-            HP = 100,
-            BaseDamage = 7
-        };
 
-        npc.DropTable.Add(new LootEntry("Coins", weigth: 60, minimumAmount: 3, maximumAmount: 30));
-        npc.DropTable.Add(new LootEntry("Health Restoration Potion", weigth: 25, minimumAmount: 1, maximumAmount: 2));
-        npc.DropTable.Add(new LootEntry("Rusty Dagger", weigth: 10));
+        // var npc = new NPC
+        // {
+        //     TypeOfFoe = "Goblin",
+        //     XPWhenDefeated = 30,
+        //     HP = 100,
+        //     BaseDamage = 7
+        // };
 
-        var battle = new BattleEngine();
-        battle.Fight(player, npc);
+        // npc.DropTable.Add(new LootEntry("Coins", weigth: 60, minimumAmount: 3, maximumAmount: 30));
+        // npc.DropTable.Add(new LootEntry("Health Restoration Potion", weigth: 25, minimumAmount: 1, maximumAmount: 2));
+        // npc.DropTable.Add(new LootEntry("Rusty Dagger", weigth: 10));
 
-        
+        // var battle = new BattleEngine();
+        // battle.Fight(player, npc);
+
+        var name = UI.AskPlayerForName();
+        Console.WriteLine(name);
+        var build = UI.GetCharacterBuild();
+        Console.WriteLine($"{name} chose to play the {build} build!");
+
     }
 }

@@ -1,30 +1,14 @@
-public class NPC : IBattleSystem
+public class NPC
 {
-    public string Name => TypeOfFoe;
-    public string TypeOfFoe { get; set; } = string.Empty;
-    public double HP { get; set; }
-    public double Mana { get; set; }
-    public double XPWhenDefeated { get; set; }
-    public double BaseDamage { get; set; }
-    public bool SpecialAttack { get; set; }
+    public string Name { get; set; } = "Goblin";
+    public double HP { get; set; } = 30;
+    public double BaseDamage { get; set; } = 7;
     public List<LootEntry> DropTable { get; } = new List<LootEntry>();
     public bool IsAlive => HP > 0;
 
     public void TakeDamage(double amount)
     {
         HP = Math.Max(0, HP - amount);
-    }
-
-    public double DealDamage(Random rng)
-    {
-        var rolledDamage = rng.Next(1, 101);
-
-        if (rolledDamage <= 15)
-        {
-            return 0;
-        }
-
-        return Math.Round(BaseDamage, 1);
     }
 
     /// <summary>
@@ -48,33 +32,10 @@ public class NPC : IBattleSystem
 
         for (var i = 0; i < rolls; i++)
         {
-            var entry = PickWeigth(rng, DropTable);
+            var entry = LootRoller.PickWeigth(rng, DropTable);
             int amount = rng.Next(entry.MinimumAmount, entry.MaximumAmount + 1);
             loot.Add((entry.ItemName, amount));
         }
         return loot;
-    }
-
-    /// <summary>
-    /// Static loot entry helper method that determines the weighting chance
-    /// </summary>
-    /// <param name="rng">Random Number Generator</param>
-    /// <param name="entries">Loot entries</param>
-    /// <returns>Loot entry</returns>
-    private static LootEntry PickWeigth(Random rng, List<LootEntry> entries)
-    {
-        int totalWeigth = entries.Sum(entry => entry.Weigth);
-        int roll = rng.Next(1, totalWeigth + 1);
-        int cumulative = 0;
-
-        foreach (var entry in entries)
-        {
-            cumulative += entry.Weigth;
-            if (roll <= cumulative)
-            {
-                return entry;
-            }
-        }
-        return entries[^1];
     }
 }
