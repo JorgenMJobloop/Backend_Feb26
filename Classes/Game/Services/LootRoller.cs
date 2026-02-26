@@ -8,13 +8,13 @@ public static class LootRoller
     /// <returns>Loot entry</returns>
     public static LootEntry PickWeigth(Random rng, List<LootEntry> entries)
     {
-        int totalWeigth = entries.Sum(entry => entry.Weigth);
-        int roll = rng.Next(1, totalWeigth + 1);
+        int totalWeight = entries.Sum(entry => entry.Weight);
+        int roll = rng.Next(1, totalWeight + 1);
         int cumulative = 0;
 
         foreach (var entry in entries)
         {
-            cumulative += entry.Weigth;
+            cumulative += entry.Weight;
             if (roll <= cumulative)
             {
                 return entry;

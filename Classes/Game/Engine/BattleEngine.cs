@@ -1,82 +1,69 @@
-// public class BattleEngine
-// {
-//     /// <summary>
-//     /// Private Random Number Generator class instance field
-//     /// </summary>
-//     private readonly Random _rng = new Random();
+using Spectre.Console;
 
-//     /// <summary>
-//     /// simulate battles
-//     /// </summary>
-//     /// <param name="player">The player</param>
-//     /// <param name="npc">npc</param>
-//     public void Fight(Player player, NPC npc)
-//     {
-//         Console.WriteLine($"Battle started: {player.Name} VS {npc.Name}");
+public static class BattleEngine
+{
+    public static void RunBattle(GameState state)
+    {
+        var player = state.Player;
+        var enemy = state.CurrentEnemy;
 
-//         // number of rounds
-//         int rounds = 1;
+        AnsiConsole.Clear();
+        AnsiConsole.Write(new Rule($"[red]Battle vs {enemy!.Name}[/]"));
 
-//         while (player.IsAlive && npc.IsAlive)
-//         {
-//             Console.WriteLine($"-- Round: {rounds} --");
-//             UseAttack(player, npc);
+        while (player.HP > 0 && enemy.IsAlive)
+        {
+            var action = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title($"[bold]{player.Name}[/] HP: [green]{player.HP}[/] | [bold]{enemy.Name}[/] Enemy HP: {enemy.HP}").AddChoices("Attack", "Run")
+            );
 
-//             // Check if the NPC is defeated
-//             if (!npc.IsAlive)
-//             {
-//                 break;
-//             }
+            if (action == "Run")
+            {
+                AnsiConsole.MarkupLine("[gray]You managed to run away from the enemy...[/]");
+                Console.ReadKey(true);
+                return;
+            }
 
-//             // Check if the player is defeated
-//             UseAttack(npc, player);
-//             Console.WriteLine($"{player.Name} HP: {player.HP} | {npc.Name} HP: {npc.HP}");
-//             rounds++;
-//         }
+            // if the player does not choose "Run" we implement the battle system
+            double damage = Math.Round(20 + state.RNG.NextDouble() * 10, 1);
+            enemy.TakeDamage(damage);
+            AnsiConsole.MarkupLine($"{enemy.Name} was hit for [green]{damage}[/]");
 
-//         if (player.IsAlive)
-//         {
-//             Console.WriteLine($"{player.Name} defeated {npc.Name}\nand gained {npc.XPWhenDefeated} experience.");
+            if (!enemy.IsAlive)
+            {
+                break;
+            }
 
-//             // implementing the looting system
-//             var loot = npc.RollLoot(_rng, rolls: 1, dropChance: 0.85);
+            // enemy attacks
+            double incomingDamage = Math.Round(enemy.BaseDamage, 1);
+            player.HP = Math.Max(0, player.HP - incomingDamage);
+            AnsiConsole.MarkupLine($"{enemy.Name} hit {player.Name} for [red]{incomingDamage}[/] damage!");
+        }
 
-//             if (loot.Count == 0)
-//             {
-//                 Console.WriteLine($"{npc.Name} dropped no items");
-//             }
-//             else
-//             {
-//                 foreach (var (item, amount) in loot)
-//                 {
-//                     player.Inventory.Add(item, amount);
-//                     Console.WriteLine($"Items looted: {item}--{amount}");
-//                 }
-//             }
-//             Console.WriteLine($"Items currently in inventory : {player.Inventory}");
-//         }
-//         else
-//         {
-//             Console.WriteLine($"{player.Name} was defeated by {npc.Name}...");
-//         }
-//     }
+        if (player.HP <= 0)
+        {
+            AnsiConsole.MarkupLine("[red]You died..[/]");
+            Console.ReadKey(true);
+            return;
+        }
 
-//     /// <summary>
-//     /// A helper method for performing attacks within the battle engine
-//     /// </summary>
-//     /// <param name="attacker">attacker</param>
-//     /// <param name="defender">defender</param>
-//     private void UseAttack(IBattleSystem attacker, IBattleSystem defender)
-//     {
-//         double damage = attacker.DealDamage(_rng);
+        AnsiConsole.MarkupLine($"[green]{player.Name} defeated {enemy.Name}![/]");
 
-//         if (damage == 0)
-//         {
-//             Console.WriteLine($"{attacker.Name} missed their attack! And {defender.Name} took {damage} damage!");
-//             return;
-//         }
+        var loot = enemy.RollLoot(state.RNG, rolls: 2);
+        if (loot.Count == 0)
+        {
+            AnsiConsole.MarkupLine("[grey]No loot found...[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[bold]Loot:[/]");
+            foreach (var (item, amount) in loot)
+            {
+                player.Inventory.Add(item, amount);
+                AnsiConsole.MarkupLine($"- {item} : {amount}");
+            }
+        }
 
-//         defender.TakeDamage(damage);
-//         Console.WriteLine($"{attacker.Name} hit {defender.Name} for {damage} damage!");
-//     }
-// }
+        Console.ReadKey(true);
+    }
+}

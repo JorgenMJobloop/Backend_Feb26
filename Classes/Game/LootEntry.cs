@@ -12,15 +12,15 @@ public class LootEntry
 {
     public string ItemName { get; }
     public Rarity Rarity { get; }
-    public int Weigth { get; } // weigth for relative chance
+    public int Weight { get; } // weigth for relative chance
     public int MinimumAmount { get; }
     public int MaximumAmount { get; }
 
-    public LootEntry(string itemName, Rarity rarity, int weigth, int minimumAmount = 1, int maximumAmount = 1)
+    public LootEntry(string itemName, Rarity rarity, int weight, int minimumAmount = 1, int maximumAmount = 1)
     {
         ItemName = itemName;
         Rarity = rarity;
-        Weigth = weigth;
+        Weight = weight;
         MinimumAmount = minimumAmount;
         MaximumAmount = maximumAmount;
     }
