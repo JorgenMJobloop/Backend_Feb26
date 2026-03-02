@@ -19,6 +19,18 @@ public class CharacterClass
     public CharacterBuild Build { get; }
     public string Weapon { get; set; } = string.Empty;
     /// <summary>
+    /// Base damage
+    /// </summary>
+    public double BaseDamage { get; }
+    /// <summary>
+    /// Accuracy of attacks, 0 - 100
+    /// </summary>    
+    public int Accuracy { get; }
+    /// <summary>
+    /// Chance of landing a critical hit 0 - 100
+    /// </summary>
+    public int CritChance { get; }
+    /// <summary>
     /// XP multiplier
     /// </summary>
     public double XPMultiplier { get; set; }

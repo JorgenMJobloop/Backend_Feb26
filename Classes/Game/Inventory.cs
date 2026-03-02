@@ -20,6 +20,36 @@ public class Inventory
         _items[itemName] = existingItems + amount;
     }
 
+    public bool Remove(string itemName, int amount = 1)
+    {
+        if (!_items.TryGetValue(itemName, out int exists) || amount <= 0)
+        {
+            return false;
+        }
+
+        int itemsLeft = exists - amount;
+        if (itemsLeft > 0)
+        {
+            _items[itemName] = itemsLeft;
+        }
+        else
+        {
+            _items.Remove(itemName);
+        }
+        return true;
+    }
+
+    public void ClearAndSetInventory(Dictionary<string, int> itemsInInventory)
+    {
+        // Clear the inventory
+        _items.Clear();
+        // Set items in inventory
+        foreach (var keyValuePairs in itemsInInventory)
+        {
+            _items[keyValuePairs.Key] = keyValuePairs.Value;
+        }
+    }
+
     public IReadOnlyDictionary<string, int> Items => _items;
     public bool IsEmpty => _items.Count == 0;
 

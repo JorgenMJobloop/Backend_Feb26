@@ -17,6 +17,9 @@ public class Player
     /// Character class (mage, warrior, ranger)
     /// </summary>
     public CharacterClass? CharacterClass { get; set; }
+    public int XP { get; set; } = 0;
+
+    public int Level { get; set; } = 1;
 
     public Inventory Inventory { get; } = new Inventory();
 
