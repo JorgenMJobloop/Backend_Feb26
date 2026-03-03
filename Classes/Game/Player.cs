@@ -1,18 +1,14 @@
 
-public class Player
+public class Player : ImprovedBattleEngine
 {
     /// <summary>
     /// Name of the player
     /// </summary>
-    public string Name { get; }
-    /// <summary>
-    /// Hitpoints property
-    /// </summary>
-    public double HP { get; set; } = 100;
-    /// <summary>
-    /// Mana property
-    /// </summary>
-    public double Mana { get; set; } = 50;
+    public override string Name { get; }
+    public override int AttackSpeed { get; }
+    public override int Accuracy { get; }
+    public override int CritChance { get; }
+    public override double BaseDamage { get; }
     /// <summary>
     /// Character class (mage, warrior, ranger)
     /// </summary>
@@ -25,20 +21,16 @@ public class Player
 
     public Party? Party { get; } = new Party();
 
-    public bool IsAlive => HP > 0; // if the player has more than 0 Hitpoints, this value is true, else it is false.
 
-    /// <summary>
-    /// Constructor that allows for "empty" initalization when an object is created to referance this class
-    /// </summary>
-    public Player(string name, CharacterClass characterClass)
+    public Player(string name, int attackSpeed, int accuracy, int critChance, double baseDamage, CharacterClass build)
+        : base(hp: 100, mana: 50)
     {
         Name = name;
-        CharacterClass = characterClass;
-    }
-
-    public void TakeDamage(double amount)
-    {
-        HP = Math.Max(0, HP - amount);
+        CharacterClass = build;
+        AttackSpeed = attackSpeed;
+        Accuracy = accuracy;
+        CritChance = critChance;
+        BaseDamage = baseDamage;
     }
 
     public double DealDamage(Random rng)

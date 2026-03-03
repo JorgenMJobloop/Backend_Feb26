@@ -19,13 +19,7 @@ public static class SaveGameMapper
 
     public static GameState MapLoad(SaveGame saveFile)
     {
-        var player = new Player(saveFile.PlayerName, saveFile.CharacterClass!)
-        {
-            HP = saveFile.HP,
-            Mana = saveFile.Mana,
-            Level = saveFile.Level,
-            XP = saveFile.XP,
-        };
+        var player = new Player(saveFile.PlayerName, 1, 1, 1, 30, saveFile.CharacterClass!);
 
         player.Inventory.ClearAndSetInventory(saveFile.Inventory);
         return new GameState { Player = player };

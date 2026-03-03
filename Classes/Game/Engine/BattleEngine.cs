@@ -1,5 +1,8 @@
 using Spectre.Console;
-
+/// <summary>
+/// First iteration
+/// Version 0.0.1
+/// </summary>
 public static class BattleEngine
 {
     public static void RunBattle(GameState state)
@@ -36,7 +39,7 @@ public static class BattleEngine
 
             // enemy attacks
             double incomingDamage = Math.Round(enemy.BaseDamage, 1);
-            player.HP = Math.Max(0, player.HP - incomingDamage);
+            double hp = Math.Max(0, player.HP - incomingDamage);
             AnsiConsole.MarkupLine($"{enemy.Name} hit {player.Name} for [red]{incomingDamage}[/] damage!");
         }
 

@@ -52,11 +52,7 @@ public static class MainMenu
         var name = UI.AskPlayerForName();
         var build = UI.GetCharacterBuild();
 
-        var player = new Player(name, CharacterClassDefinition.GetClass(build))
-        {
-            HP = 100,
-            Mana = 50
-        };
+        var player = new Player(name, 1, 1, 1, 30, CharacterClassDefinition.GetClass(build));
 
         // starter items
         player.Inventory.Add("Health Potion", 2);

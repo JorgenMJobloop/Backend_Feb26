@@ -1,6 +1,10 @@
 {
   "Version": 1,
   "PlayerName": "Rambo",
+  "AttackSpeed": 0,
+  "Accuracy": 0,
+  "CritChance": 0,
+  "BaseDamage": 0,
   "CharacterClass": {
     "Build": "Warrior",
     "Weapon": "Sword",
@@ -9,24 +13,13 @@
     "CritChance": 0,
     "XPMultiplier": 1.1
   },
-  "HP": 79,
+  "HP": 100,
   "Mana": 50,
   "Level": 1,
   "XP": 0,
   "Inventory": {
     "Health Potion": 2,
-    "Gold Coins": 50,
-    "Rusty Dagger": 2,
-    "Gold Coin": 165
+    "Gold Coins": 50
   },
-  "Party": [
-    {
-      "Build": "Mage",
-      "Weapon": "Tome",
-      "BaseDamage": 0,
-      "Accuracy": 0,
-      "CritChance": 0,
-      "XPMultiplier": 1.05
-    }
-  ]
+  "Party": []
 }

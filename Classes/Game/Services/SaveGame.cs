@@ -6,6 +6,10 @@ public sealed class SaveGame
 {
     public int Version { get; set; } = 1;
     public string PlayerName { get; set; } = string.Empty;
+    public int AttackSpeed { get; set; }
+    public int Accuracy { get; set; }
+    public int CritChance { get; set; }
+    public double BaseDamage { get; set; }
     public CharacterClass? CharacterClass { get; set; }
 
     public double HP { get; set; }
