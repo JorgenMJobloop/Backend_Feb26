@@ -1,5 +1,5 @@
 
-public class Player : ImprovedBattleEngine
+public class Player : BattleSystem
 {
     /// <summary>
     /// Name of the player

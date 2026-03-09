@@ -27,13 +27,13 @@ public static class CombatUI
     /// </summary>
     /// <param name="title">name of target</param>
     /// <param name="targets">all enemies</param>
-    /// <returns>IBattleEngine</returns>
-    public static IBattleEngine GetTarget(string title, IEnumerable<IBattleEngine> targets)
+    /// <returns>IBattleSystem</returns>
+    public static IBattleSystem GetTarget(string title, IEnumerable<IBattleSystem> targets)
     {
         var alive = targets.Where(target => target.IsAlive).ToList();
 
         return AnsiConsole.Prompt(
-            new SelectionPrompt<IBattleEngine>()
+            new SelectionPrompt<IBattleSystem>()
             .Title(title)
             .UseConverter(target => target.Name)
             .AddChoices(alive)

@@ -1,4 +1,4 @@
-public interface IBattleEngine
+public interface IBattleSystem
 {
     // values relevant to both Player and NPC that is used in a battle system
     string Name { get; }

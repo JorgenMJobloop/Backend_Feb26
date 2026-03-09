@@ -7,7 +7,7 @@ public enum PartyMember
     Tank = 5,
     Assasin = 6
 }
-public class Party : ImprovedBattleEngine
+public class Party : BattleSystem
 {
     private readonly List<CharacterClass> _companions = new List<CharacterClass>();
     public IReadOnlyList<CharacterClass> Companions => _companions;

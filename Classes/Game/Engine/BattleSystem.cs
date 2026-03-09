@@ -1,7 +1,7 @@
 /// <summary>
 /// A superclass containing abstract properties & methods regarding the improved battle engine (turn based)
 /// </summary>
-public abstract class ImprovedBattleEngine : IBattleEngine
+public abstract class BattleSystem : IBattleSystem
 {
     // Abstract fields & properties, can be overwritten by other classes & sub-classes
     public abstract string Name { get; }
@@ -18,7 +18,7 @@ public abstract class ImprovedBattleEngine : IBattleEngine
     public bool IsCurrentlyDefending { get; set; }
     public bool IsAlive => HP > 0;
 
-    protected ImprovedBattleEngine(double hp, double mana)
+    protected BattleSystem(double hp, double mana)
     {
         MaxHP = hp;
         HP = hp;

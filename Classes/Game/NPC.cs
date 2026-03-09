@@ -1,4 +1,4 @@
-public class NPC : ImprovedBattleEngine
+public class NPC : BattleSystem
 {
     public List<LootEntry> DropTable { get; } = new List<LootEntry>();
 

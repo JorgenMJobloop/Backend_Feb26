@@ -1,6 +1,6 @@
 public static class TurnOrderHelper
 {
-    public static List<IBattleEngine> BuildCombatOrder(Random rng, IEnumerable<IBattleEngine> allAlive)
+    public static List<IBattleSystem> BuildCombatOrder(Random rng, IEnumerable<IBattleSystem> allAlive)
     {
         return allAlive.Where(combatant => combatant.IsAlive).Select(c => new
         {
